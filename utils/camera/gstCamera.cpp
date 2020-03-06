@@ -148,7 +148,6 @@ bool gstCamera::Capture( void** cpu, void** cuda, uint64_t timeout )
 		if( !Open() )
 			return false;
 	}
-
 	// wait until a new frame is recieved
 	if( !mWaitEvent.Wait(timeout) )
 		return false;
@@ -419,9 +418,10 @@ bool gstCamera::buildLaunchStr( gstCameraSrc src )
 		if( src == GST_SOURCE_NVCAMERA )
 			ss << "nvcamerasrc fpsRange=\"30.0 30.0\" ! video/x-raw(memory:NVMM), width=(int)" << mWidth << ", height=(int)" << mHeight << ", format=(string)NV12 ! nvvidconv flip-method=" << flipMethod << " ! "; //'video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)I420, framerate=(fraction)30/1' ! ";
 		else if( src == GST_SOURCE_NVARGUS )
-			ss << "nvarguscamerasrc sensor-id=" << mSensorCSI << " ! video/x-raw(memory:NVMM), width=(int)" << mWidth << ", height=(int)" << mHeight << ", framerate=30/1, format=(string)NV12 ! nvvidconv flip-method=" << flipMethod << " ! ";
+			ss << "filesrc location=/home/c-vis/cycle-vision-cv/videos/test.yuv ! videoparse width=640 height=360 framerate=8/1 format=2 ! appsink name=mysink";  
+			//ss << "nvarguscamerasrc sensor-id=" << mSensorCSI << " ! video/x-raw(memory:NVMM), width=(int)" << mWidth << ", height=(int)" << mHeight << ", framerate=30/1, format=(string)NV12 ! nvvidconv flip-method=" << flipMethod << " ! ";
 		
-		ss << "video/x-raw ! appsink name=mysink";
+		//ss << "video/x-raw ! appsink name=mysink";
 	}
 	else
 	{
