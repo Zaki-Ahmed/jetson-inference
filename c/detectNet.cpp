@@ -39,7 +39,7 @@
 #define CHECK_NULL_STR(x)	(x != NULL) ? x : "NULL"
 //#define DEBUG_CLUSTERING
 
-#define CV_ROAD_LABELS == 1 //Limit Neural Network labels to road classes
+#define CV_ROAD_LABELS 1 //Limit Neural Network labels to road classes
 
 // constructor
 detectNet::detectNet( float meanPixel ) : tensorNet()
@@ -258,7 +258,7 @@ detectNet* detectNet::Create( NetworkType networkType, float threshold, uint32_t
 		return Create("networks/SSD-Mobilenet-v1/ssd_mobilenet_v1_coco.uff", "networks/SSD-Mobilenet-v1/ssd_coco_labels.txt", threshold, "Input", Dims3(3,300,300), "Postprocessor", "Postprocessor_1", maxBatchSize, precision, device, allowGPUFallback);
 	#if CV_ROAD_LABELS == 1
 		else if( networkType == SSD_MOBILENET_V2 )
-			return Create("networks/SSD-Mobilenet-v2/ssd_mobilenet_v2_coco.uff", "networks/SSD-Mobilenet-v2/ssd_coco_labels2.txt", threshold, "Input", Dims3(3,300,300), "NMS", "NMS_1", maxBatchSize, precision, device, allowGPUFallback);
+			return Create("networks/SSD-Mobilenet-v2/ssd_mobilenet_v2_coco.uff", "networks/ssd_coco_labels2.txt", threshold, "Input", Dims3(3,300,300), "NMS", "NMS_1", maxBatchSize, precision, device, allowGPUFallback);
 	#else
 		else if( networkType == SSD_MOBILENET_V2 )
 			return Create("networks/SSD-Mobilenet-v2/ssd_mobilenet_v2_coco.uff", "networks/SSD-Mobilenet-v2/ssd_coco_labels.txt", threshold, "Input", Dims3(3,300,300), "NMS", "NMS_1", maxBatchSize, precision, device, allowGPUFallback);

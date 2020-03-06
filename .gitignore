@@ -1,4 +1,5 @@
 build/
+data/networks/
 python/python/Jetson/Inference/
 *.pyc
 *.tar.gz
