@@ -408,7 +408,7 @@ bool gstCamera::buildLaunchStr( gstCameraSrc src, const char* video  )
 
 	if( video && strlen(video) > 0 )
 	{
-		ss << "filesrc location=" << video << " ! videoparse width=" << mWidth << " height=" << mHeight << " framerate=30/1 format=2 ! appsink name=mysink"
+		ss << "filesrc location=" << video << " ! videoparse width=" << mWidth << " height=" << mHeight << " framerate=30/1 format=2 ! appsink name=mysink";
 		return true;
 	}
 
