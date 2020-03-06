@@ -18,7 +18,7 @@ if( NOT EXISTS "${PROJECT_SOURCE_DIR}/utils/.git" )
 	message(" ")
 	message("          git submodule update --init")
 	message(" ")
-	message(FATAL_ERROR "missing required git submodules, see instructions above")
+	#message(FATAL_ERROR "missing required git submodules, see instructions above")
 endif()
 
 
