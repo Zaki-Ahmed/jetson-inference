@@ -398,13 +398,19 @@ void gstCamera::checkBuffer()
 
 
 // buildLaunchStr
-bool gstCamera::buildLaunchStr( gstCameraSrc src )
+bool gstCamera::buildLaunchStr( gstCameraSrc src, const char* video  )
 {
 	// gst-launch-1.0 nvcamerasrc fpsRange="30.0 30.0" ! 'video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)I420, framerate=(fraction)30/1' ! \
 	// nvvidconv flip-method=2 ! 'video/x-raw(memory:NVMM), format=(string)I420' ! fakesink silent=false -v
 	// #define CAPS_STR "video/x-raw(memory:NVMM), width=(int)2592, height=(int)1944, format=(string)I420, framerate=(fraction)30/1"
 	// #define CAPS_STR "video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)I420, framerate=(fraction)30/1"
 	std::ostringstream ss;
+
+	if( video && strlen(video) > 0 )
+	{
+		ss << "filesrc location=" << video << " ! videoparse width=" << mWidth << " height=" << mHeight << " framerate=30/1 format=2 ! appsink name=mysink"
+		return true;
+	}
 
 	if( csiCamera() && src != GST_SOURCE_V4L2 )
 	{
@@ -483,7 +489,7 @@ bool gstCamera::parseCameraStr( const char* camera )
 
 
 // Create
-gstCamera* gstCamera::Create( uint32_t width, uint32_t height, const char* camera )
+gstCamera* gstCamera::Create( uint32_t width, uint32_t height, const char* camera, const char* video )
 {
 	if( !gstreamerInit() )
 	{
@@ -504,18 +510,18 @@ gstCamera* gstCamera::Create( uint32_t width, uint32_t height, const char* camer
 	cam->mDepth      = cam->csiCamera() ? 12 : 24;	// NV12 or RGB
 	cam->mSize       = (width * height * cam->mDepth) / 8;
 
-	if( !cam->init(GST_SOURCE_NVARGUS) )
+	if( !cam->init(GST_SOURCE_NVARGUS, video) )
 	{
 		printf(LOG_GSTREAMER "failed to init gstCamera (GST_SOURCE_NVARGUS, camera %s)\n", cam->mCameraStr.c_str());
 
-		if( !cam->init(GST_SOURCE_NVCAMERA) )
+		if( !cam->init(GST_SOURCE_NVCAMERA, video) )
 		{
 			printf(LOG_GSTREAMER "failed to init gstCamera (GST_SOURCE_NVCAMERA, camera %s)\n", cam->mCameraStr.c_str());
 
 			if( cam->mSensorCSI >= 0 )
 				cam->mSensorCSI = -1;
 
-			if( !cam->init(GST_SOURCE_V4L2) )
+			if( !cam->init(GST_SOURCE_V4L2, video) )
 			{
 				printf(LOG_GSTREAMER "failed to init gstCamera (GST_SOURCE_V4L2, camera %s)\n", cam->mCameraStr.c_str());
 				return NULL;
@@ -536,13 +542,13 @@ gstCamera* gstCamera::Create( const char* camera )
 
 
 // init
-bool gstCamera::init( gstCameraSrc src )
+bool gstCamera::init( gstCameraSrc src, const char* video )
 {
 	GError* err = NULL;
 	printf(LOG_GSTREAMER "gstCamera attempting to initialize with %s, camera %s\n", gstCameraSrcToString(src), mCameraStr.c_str());
 
 	// build pipeline string
-	if( !buildLaunchStr(src) )
+	if( !buildLaunchStr(src, video) )
 	{
 		printf(LOG_GSTREAMER "gstCamera failed to build pipeline string\n");
 		return false;

@@ -111,7 +111,7 @@ public:
 	 *
 	 * @returns A pointer to the created gstCamera device, or NULL if there was an error.
 	 */
-	static gstCamera* Create( uint32_t width, uint32_t height, const char* camera=NULL );
+	static gstCamera* Create( uint32_t width, uint32_t height, const char* camera=NULL, const char* video=NULL );
 	
 	/**
 	 * Release the camera interface and resources.
@@ -273,8 +273,8 @@ private:
 
 	gstCamera();
 
-	bool init( gstCameraSrc src );
-	bool buildLaunchStr( gstCameraSrc src );
+	bool init( gstCameraSrc src , const char* video );
+	bool buildLaunchStr( gstCameraSrc src, const char* video );
 	bool parseCameraStr( const char* camera );
 
 	void checkMsgBus();
