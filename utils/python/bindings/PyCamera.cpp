@@ -63,10 +63,11 @@ static int PyCamera_Init( PyCamera_Object* self, PyObject *args, PyObject *kwds 
 	int camera_height  = gstCamera::DefaultHeight;
 	const char* device = NULL;
 	const char* video = NULL;
+	int framerate = 30;
 
-	static char* kwlist[] = {"width", "height", "camera", "video", NULL};
+	static char* kwlist[] = {"width", "height", "camera", "video", "framerate", NULL};
 
-	if( !PyArg_ParseTupleAndKeywords(args, kwds, "|iiss", kwlist, &camera_width, &camera_height, &device, &video))
+	if( !PyArg_ParseTupleAndKeywords(args, kwds, "|iissi", kwlist, &camera_width, &camera_height, &device, &video, &framerate))
 	{
 		PyErr_SetString(PyExc_Exception, LOG_PY_UTILS "gstCamera.__init()__ failed to parse args tuple");
 		printf(LOG_PY_UTILS "gstCamera.__init()__ failed to parse args tuple\n");
@@ -85,8 +86,11 @@ static int PyCamera_Init( PyCamera_Object* self, PyObject *args, PyObject *kwds 
 		return NULL;
 	}*/
 
+	if( framerate > 65 || framerate < 5)
+		framerate = 30;
+
 	// create the camera object
-	gstCamera* camera = gstCamera::Create(camera_width, camera_height, device, video);
+	gstCamera* camera = gstCamera::Create(camera_width, camera_height, device, video, framerate);
 
 	if( !camera )
 	{
