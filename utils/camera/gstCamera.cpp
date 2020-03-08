@@ -406,7 +406,7 @@ bool gstCamera::buildLaunchStr( gstCameraSrc src, const char* video  )
 	// #define CAPS_STR "video/x-raw(memory:NVMM), width=(int)1920, height=(int)1080, format=(string)I420, framerate=(fraction)30/1"
 	std::ostringstream ss;
 
-	if( video && strlen(video) > 0 )
+	if((video != NULL) && strlen(video) > 0 )
 	{
 		printf("Going to attempt to play a video !");
 		//working video play
