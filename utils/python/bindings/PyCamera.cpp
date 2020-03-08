@@ -63,9 +63,9 @@ static int PyCamera_Init( PyCamera_Object* self, PyObject *args, PyObject *kwds 
 	int camera_height  = gstCamera::DefaultHeight;
 	const char* device = NULL;
 
-	static char* kwlist[] = {"width", "height", "camera", NULL};
+	static char* kwlist[] = {"width", "height", "camera", "video", NULL};
 
-	if( !PyArg_ParseTupleAndKeywords(args, kwds, "|iis", kwlist, &camera_width, &camera_height, &device))
+	if( !PyArg_ParseTupleAndKeywords(args, kwds, "|iiss", kwlist, &camera_width, &camera_height, &device, &video))
 	{
 		PyErr_SetString(PyExc_Exception, LOG_PY_UTILS "gstCamera.__init()__ failed to parse args tuple");
 		printf(LOG_PY_UTILS "gstCamera.__init()__ failed to parse args tuple\n");
