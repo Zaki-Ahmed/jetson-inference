@@ -408,7 +408,6 @@ bool gstCamera::buildLaunchStr( gstCameraSrc src, const char* video, uint8_t fra
 
 	if((video != NULL) && strlen(video) > 0 )
 	{
-		printf("Going to attempt to play a video !");
 		//working video play
 		//ss << "filesrc location=/home/c-vis/cycle-vision-cv/videos/test.yuv ! videoparse width=640 height=360 framerate=8/1 format=2 ! appsink name=mysink";  
 
