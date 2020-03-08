@@ -1,5 +1,5 @@
 void
-person
+void
 bicycle
 car
 motorcycle
