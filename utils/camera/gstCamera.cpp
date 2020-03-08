@@ -413,10 +413,9 @@ bool gstCamera::buildLaunchStr( gstCameraSrc src, const char* video  )
 		//ss << "filesrc location=/home/c-vis/cycle-vision-cv/videos/test.yuv ! videoparse width=640 height=360 framerate=8/1 format=2 ! appsink name=mysink";  
 
 		ss << "filesrc location=" << video << " ! videoparse width=" << mWidth << " height=" << mHeight << " framerate=30/1 format=2 ! appsink name=mysink";
-		return true;
 	}
 
-	if( csiCamera() && src != GST_SOURCE_V4L2 )
+	else if( csiCamera() && src != GST_SOURCE_V4L2 )
 	{
 		mSource = src;	 // store camera source method
 
