@@ -86,7 +86,7 @@ static int PyCamera_Init( PyCamera_Object* self, PyObject *args, PyObject *kwds 
 	}*/
 
 	// create the camera object
-	gstCamera* camera = gstCamera::Create(camera_width, camera_height, device);
+	gstCamera* camera = gstCamera::Create(camera_width, camera_height, device, video);
 
 	if( !camera )
 	{
