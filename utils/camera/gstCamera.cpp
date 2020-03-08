@@ -540,7 +540,7 @@ gstCamera* gstCamera::Create( uint32_t width, uint32_t height, const char* camer
 // Create
 gstCamera* gstCamera::Create( const char* camera )
 {
-	return Create( DefaultWidth, DefaultHeight, camera );
+	return Create( DefaultWidth, DefaultHeight, camera, NULL, 30 );
 }
 
 
