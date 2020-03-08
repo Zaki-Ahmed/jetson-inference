@@ -410,7 +410,7 @@ bool gstCamera::buildLaunchStr( gstCameraSrc src, const char* video, uint8_t fra
 	{
 		//working video play
 		//ss << "filesrc location=/home/c-vis/cycle-vision-cv/videos/test.yuv ! videoparse width=640 height=360 framerate=8/1 format=2 ! appsink name=mysink";  
-		string fr = to_string(framerate)
+		std::string fr = std::to_string(framerate);
 		// char const *pchar = s.c_str();
 		ss << "filesrc location=" << video << " ! videoparse width=" << mWidth << " height=" << mHeight << " framerate="<< fr.c_str() <<"/1 format=2 ! appsink name=mysink";
 	}
