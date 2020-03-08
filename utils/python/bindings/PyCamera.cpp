@@ -62,6 +62,7 @@ static int PyCamera_Init( PyCamera_Object* self, PyObject *args, PyObject *kwds 
 	int camera_width   = gstCamera::DefaultWidth;
 	int camera_height  = gstCamera::DefaultHeight;
 	const char* device = NULL;
+	const char* video = NULL;
 
 	static char* kwlist[] = {"width", "height", "camera", "video", NULL};
 
